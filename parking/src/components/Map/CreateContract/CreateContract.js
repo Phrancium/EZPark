@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import Contract from '../../classes/Contract';
-import Vehicle from '../../classes/Vehicle';
 
-const initialState = {
-  createContrat: false,
-  smartContracts: [],
-  vehicles: [],
-};
+const initialState = Contract();
 
 class Map extends Component {
   constructor(props){
@@ -14,20 +9,24 @@ class Map extends Component {
     this.state = initialState;
   }
 
-  addContract(contract) {
-    let smartContracts = [...this.state.smartContracts];
-    smartContracts.append(contract);
-    this.setState({
-      smartContracts: smartContracts
-    });
+  setLongitude(val) {
+    this.setState({longitude: val});
   }
 
-  fetchVehicles() {
-
+  setLatitude(val) {
+    this.setState({latitude: val});
   }
 
-  trackPayment() {
+  setRadius(val) {
     
+  }
+
+  setCost(val) {
+    this.setState({cost: val});
+  }
+
+  addContract() {
+    return Contract(...this.state);
   }
 
   setError(val) {

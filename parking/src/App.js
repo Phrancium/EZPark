@@ -10,8 +10,6 @@ const initialState = {
   address: '',
   email: '',
   initialized: false,
-  smartContracts: [],
-  vehicles: [],
   error: null,
   pending: false,
 }
@@ -39,6 +37,10 @@ class App extends Component {
     this.setState({initialized: true});
   }
 
+  setError(val) {
+    this.setError({error:val});
+  }
+
   render() {
     if (this.state.error) {
       return (
@@ -62,7 +64,9 @@ class App extends Component {
       )
     }
     return (
-      <Map />
+      <Map
+        setError={val=>this.setError(val)}
+      />
     );
   }
 }

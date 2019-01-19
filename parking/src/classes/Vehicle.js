@@ -1,10 +1,9 @@
-import Coord from './Coord';
-
-const Vehicle = (id, fee, coord) => {
+const Vehicle = (id, fee, longitude='',latitude='') => {
   return {
     id: id,
     fee: fee,
-    coord: coord
+    longitude: longitude,
+    latitude: latitude
   };
 }
 

@@ -1,8 +1,7 @@
-import Coord from './Coord';
-
-const Contract = (coord, radius, cost) => {
+const Contract = (longitude='', latitude='', radius='', cost='') => {
   return {
-    coord: coord
+    longitude: longitude,
+    latitude: latitude,
     radius: radius,
     cost: cost
   };
