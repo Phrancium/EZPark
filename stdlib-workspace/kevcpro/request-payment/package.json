@@ -1,7 +1,7 @@
 {
   "name": "request-payment",
   "version": "0.0.0",
-  "description": "",
+  "description": "Requests payment for Parking Meters.",
   "author": "kevcpro <kevc.pro@gmail.com>",
   "main": "functions/__main__.js",
   "dependencies": {},
