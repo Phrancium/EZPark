@@ -8,7 +8,7 @@ import Map from './components/Map';
 
 const initialState = {
   address: '',
-  nteract: '',
+  email: '',
   initialized: false,
   smartContracts: [],
   vehicles: [],
@@ -31,8 +31,8 @@ class App extends Component {
     this.setState({address: val});
   }
 
-  setNteract(val) {
-    this.setState({nteract: val});
+  setEmail(val) {
+    this.setState({email: val});
   }
 
   submitSetup() {
@@ -53,8 +53,8 @@ class App extends Component {
     if (!this.state.initialized) {
       return (
         <Setup
-          nteract={this.state.nteract}
-          setNteract={val => this.setNteract(val)}
+          email={this.state.email}
+          setemail={val => this.setEmail(val)}
           address={this.state.address}
           setAddress={val => this.setAddress(val)}
           submitSetup={() => this.submitSetup()}
