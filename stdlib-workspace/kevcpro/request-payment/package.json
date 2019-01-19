@@ -1,0 +1,18 @@
+{
+  "name": "request-payment",
+  "version": "0.0.0",
+  "description": "Requests payment for Parking Meters.",
+  "author": "kevcpro <kevc.pro@gmail.com>",
+  "main": "functions/__main__.js",
+  "dependencies": {},
+  "private": true,
+  "stdlib": {
+    "build": "faaslang",
+    "name": "kevcpro/request-payment",
+    "timeout": 10000,
+    "personalize": {
+      "keys": [],
+      "user": []
+    }
+  }
+}
