@@ -1,2 +1,3 @@
 # EZPark
-UofTHacks project
+Our Submission for uofthacks VI
+information on devpost
