@@ -1,10 +1,11 @@
-import Coord from './Coord';
-
-const Contract = (coord, radius, cost) => {
+const Contract = (longitude='', latitude='', radius=2.4, cost='') => {
   return {
-    coord: coord
+    id:  '_' + Math.random().toString(36).substr(2, 9),
+    longitude: longitude,
+    latitude: latitude,
     radius: radius,
-    cost: cost
+    cost: cost,
+    active: false
   };
 }
 

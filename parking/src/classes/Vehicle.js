@@ -1,10 +1,8 @@
-import Coord from './Coord';
-
-const Vehicle = (id, fee, coord) => {
+const Vehicle = (id, contract, fee=0) => {
   return {
     id: id,
     fee: fee,
-    coord: coord
+    contract: contract
   };
 }
 

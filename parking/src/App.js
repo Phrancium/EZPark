@@ -9,9 +9,7 @@ import Map from './components/Map';
 const initialState = {
   address: '',
   email: '',
-  initialized: false,
-  smartContracts: [],
-  vehicles: [],
+  initialized: true,
   error: null,
   pending: false,
 }
@@ -35,8 +33,13 @@ class App extends Component {
     this.setState({email: val});
   }
 
-  submitSetup() {
+  submitSetup(e) {
+    e.preventDefault();
     this.setState({initialized: true});
+  }
+
+  setError(val) {
+    this.setError({error:val});
   }
 
   render() {
@@ -54,15 +57,17 @@ class App extends Component {
       return (
         <Setup
           email={this.state.email}
-          setemail={val => this.setEmail(val)}
+          setEmail={val => this.setEmail(val)}
           address={this.state.address}
           setAddress={val => this.setAddress(val)}
-          submitSetup={() => this.submitSetup()}
+          submitSetup={e => this.submitSetup(e)}
         />
       )
     }
     return (
-      <Map />
+      <Map
+        setError={val=>this.setError(val)}
+      />
     );
   }
 }
