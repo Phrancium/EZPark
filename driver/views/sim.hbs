@@ -1,0 +1,70 @@
+<div id="Data">
+  <h1>Simulation Window</h1>
+  <input id="Id" type="hidden" value={{vehicle.id}}>
+  <div class="row">
+    <label>Vehicle: </label>
+    <p class="value">{{vehicle.year}} {{vehicle.make}} {{vehicle.model}}</p>
+  </div>
+  <div class="row">
+    <label>Id: </label>
+    <p class="value">{{vehicle.id}}</p>
+  </div>
+  <div id="Location">
+    <h2>Current Location</h2>
+    <h3 id="spoofIndex"></h3>
+    <p id="latitude" class="coords"></p>
+    <p id="longitude" class="coords"></p>
+  </div>
+
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script>
+    var spoofIndex = 0;
+
+    $(document).ready(function() {
+      getLocation();
+      setInterval(function() {
+        getLocation();
+      }, 60000);
+    });
+
+    function getLocation() {
+      $.get('/getLocation', {vehicleId: $("#Id").val(), spoof: true, spoofIndex: spoofIndex})
+          .then(function(res) {
+            $("#latitude").text(res.data.latitude.toFixed(8)); 
+            $("#longitude").text(res.data.longitude.toFixed(8));
+            $("#spoofIndex").text(`Spoofed Location: ${spoofIndex}`);
+            spoofIndex++;
+
+            setLocation(res.data);
+          })
+          .fail(function(err) {
+            console.log(err);
+            alert( "error" );
+          });
+    }
+
+    function setLocation(data) {
+      /*
+      $.ajax({
+        url: 'https://kevcpro.lib.id/smartpark@0.0.63/storeLocation/',
+        type: 'POST',
+        data: {
+          key: $("#Id").val(),
+          latitude: data.latitude,
+          longitude: data.longitude
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer SbnWZYDiKNqpD8VXv_9uN4b897J-GQjJ5lz5Odfz7rs3PI_i5nJeCSxuUiruJDxG' 
+        },
+        success: function() {
+          console.log("UPDATED");
+        }
+      });
+      */
+    }
+  </script>
+</div>

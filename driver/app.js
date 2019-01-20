@@ -1,5 +1,233 @@
 'use strict';
 
+const spoofLocs = [
+  {
+    latitude: 0.00005,
+    longitude: 0
+  },
+  {
+    latitude: 0.00005,
+    longitude: 0
+  },
+  {
+    latitude: 0.00005,
+    longitude: 0
+  },
+  {
+    latitude: 0.000049,
+    longitude: 0
+  },
+  {
+    latitude: 0.000048,
+    longitude: 0
+  },
+  {
+    latitude: 0.000046,
+    longitude: 0
+  },
+  {
+    latitude: 0.000042,
+    longitude: 0
+  },
+  {
+    latitude: 0.000036,
+    longitude: 0
+  },
+  {
+    latitude: 0.00003,
+    longitude: 0
+  },
+  {
+    latitude: 0.000024,
+    longitude: 0
+  },
+  {
+    latitude: 0.000022,
+    longitude: 0
+  },
+  {
+    latitude: 0.000018,
+    longitude: 0
+  },
+  {
+    latitude: 0.000018,
+    longitude: 0
+  },
+  {
+    latitude: 0.000018,
+    longitude: 0
+  },
+  {
+    latitude: 0.000018,
+    longitude: 0
+  },
+  {
+    latitude: 0.000018,
+    longitude: 0
+  },
+  {
+    latitude: 0.000018,
+    longitude: 0
+  },
+  {
+    latitude: 0.000018,
+    longitude: 0
+  },
+  {
+    latitude: 0.000018,
+    longitude: 0
+  },
+  {
+    latitude: 0.000018,
+    longitude: 0
+  },
+  {
+    latitude: 0.000018,
+    longitude: 0
+  },
+  {
+    latitude: 0.000018,
+    longitude: 0
+  },
+  {
+    latitude: 0.000018,
+    longitude: 0
+  },
+  {
+    latitude: 0.000018,
+    longitude: 0
+  },
+  {
+    latitude: 0.000018,
+    longitude: 0
+  },
+  {
+    latitude: 0.000018,
+    longitude: 0.000018
+  },
+  {
+    latitude: 0.000018,
+    longitude: 0.000028
+  },
+  {
+    latitude: 0.000018,
+    longitude: 0.00003
+  },
+  {
+    latitude: 0.000018,
+    longitude: 0.000032
+  },
+  {
+    latitude: 0.000018,
+    longitude: 0.000036
+  },
+  {
+    latitude: 0.00002,
+    longitude: 0.000036
+  },
+  {
+    latitude: 0.000022,
+    longitude: 0.000037
+  },
+  {
+    latitude: 0.000026,
+    longitude: 0.000038
+  },
+  {
+    latitude: 0.000030,
+    longitude: 0.000040
+  },
+  {
+    latitude: 0.00005,
+    longitude: 0.00009
+  },
+  {
+    latitude: 0.00005,
+    longitude: 0.00009
+  },
+  {
+    latitude: 0.00005,
+    longitude: 0.00009
+  },
+  {
+    latitude: 0.00005,
+    longitude: 0.00009
+  },
+  {
+    latitude: 0.00005,
+    longitude: 0.00009
+  },
+  {
+    latitude: 0.00005,
+    longitude: 0.00009
+  },
+  {
+    latitude: 0.00005,
+    longitude: 0.00009
+  },
+  {
+    latitude: 0.00005,
+    longitude: 0.00009
+  },
+  {
+    latitude: 0.00005,
+    longitude: 0.00009
+  },
+  {
+    latitude: 0.00005,
+    longitude: 0.00009
+  },
+  {
+    latitude: 0.00005,
+    longitude: 0.00009
+  },
+  {
+    latitude: 0.00005,
+    longitude: 0.00009
+  },
+  {
+    latitude: 0.000018,
+    longitude: 0
+  },
+  {
+    latitude: 0,
+    longitude: 0
+  },
+  {
+    latitude: 0,
+    longitude: 0
+  },
+  {
+    latitude: 0,
+    longitude: 0
+  },
+  {
+    latitude: 0,
+    longitude: 0
+  },
+  {
+    latitude: 0,
+    longitude: 0
+  },
+  {
+    latitude: 0,
+    longitude: 0
+  },
+  {
+    latitude: 0,
+    longitude: 0
+  },
+  {
+    latitude: 0,
+    longitude: 0
+  }
+];
+
+const headers = {
+  'Content-Type': 'application/json',
+  'Authorization': 'Bearer SbnWZYDiKNqpD8VXv_9uN4b897J-GQjJ5lz5Odfz7rs3PI_i5nJeCSxuUiruJDxG' 
+}
+
 const _ = require('lodash');
 const Promise = require('bluebird');
 const bodyParser = require('body-parser');
@@ -11,6 +239,7 @@ const smartcar = require('smartcar');
 const opn = require('opn');
 const url = require('url');
 const validator = require('validator');
+const axios = require('axios');
 
 // Set Smartcar configuration
 const PORT = process.env.PORT || 8000;
@@ -189,90 +418,60 @@ app.get('/vehicles', function(req, res, next) {
 /**
  * Triggers a request to the vehicle and renders the response.
  */
-app.post('/request', function(req, res, next) {
+app.post('/simulate', function(req, res, next) {
   const {access, vehicles} = req.session;
   if (!access) {
     return res.redirect('/');
   }
 
-  const {vehicleId, requestType: type} = req.body;
+  const {vehicleId, email} = req.body;
   const vehicle = vehicles[vehicleId];
   const instance = new smartcar.Vehicle(vehicleId, access.accessToken);
 
-  let data = null;
+  instance.info()
+    .then(data => res.render('sim', {data, vehicle}))
+    .catch(function(err) {
+      const message = err.message || 'Failed to get vehicle info.';
+      const action = 'fetching vehicle info';
+      return redirectToError(res, message, action);
+    });
 
-  switch(type) {
-    case 'info':
-      instance.info()
-        .then(data => res.render('data', {data, type, vehicle}))
-        .catch(function(err) {
-          const message = err.message || 'Failed to get vehicle info.';
-          const action = 'fetching vehicle info';
-          return redirectToError(res, message, action);
-        });
-      break;
-    case 'location':
-      instance.location()
-        .then(({data}) => res.render('data', {data, type, vehicle}))
-        .catch(function(err) {
-          const message = err.message || 'Failed to get vehicle location.';
-          const action = 'fetching vehicle location';
-          return redirectToError(res, message, action);
-        });
-      break;
-    case 'odometer':
-      instance.odometer()
-        .then(({data}) => res.render('data', {data, type, vehicle}))
-        .catch(function(err) {
-          const message = err.message || 'Failed to get vehicle odometer.';
-          const action = 'fetching vehicle odometer';
-          return redirectToError(res, message, action);
-        });
-      break;
-    case 'lock':
-      instance.lock()
-        .then(function() {
-          res.render('data', {
-            // Lock and unlock requests do not return data if successful
-            data: {
-              action: 'Lock request sent.',
-            },
-            type,
-            vehicle,
-          });
-        })
-        .catch(function(err) {
-          const message = err.message || 'Failed to send lock request to vehicle.';
-          const action = 'locking vehicle';
-          return redirectToError(res, message, action);
-        });
-      break;
-    case 'unlock':
-      instance.unlock()
-        .then(function() {
-          res.render('data', {
-            vehicle,
-            type,
-            // Lock and unlock requests do not return data if successful
-            data: {
-              action: 'Unlock request sent.',
-            },
-          });
-        })
-        .catch(function(err) {
-          const message = err.message || 'Failed to send unlock request to vehicle.';
-          const action = 'unlocking vehicle';
-          return redirectToError(res, message, action);
-        });
-      break;
-    default:
-      return redirectToError(
-        res,
-        `Failed to find request type ${requestType}`,
-        'sending request to vehicle'
-      );
+  // axios.post('https://kevcpro.lib.id/smartpark@0.0.54/storeInfo/', {
+  //   key: vehicle.id,
+  //   value: email
+  // }, {headers: headers})
+  //   .then(function () {
+      
+  //   })
+  //   .catch(function (err) {
+  //     const message = err.message || 'Failed to get vehicle info.';
+  //     const action = 'fetching vehicle info';
+  //     return redirectToError(res, message, action);
+  //   });  
+});
+
+app.get('/getLocation', function(req, res, next) {
+  const {access, vehicles} = req.session;
+  if (!access) {
+    return res.redirect('/');
   }
 
+  const {vehicleId, spoof, spoofIndex} = req.query;
+  const instance = new smartcar.Vehicle(vehicleId, access.accessToken);
+
+  const index = spoofIndex%(spoofLocs.length);
+  if(spoof){
+    res.json({data:spoofLocs[index]});
+  }
+  else {
+    instance.location()
+      .then(({data}) => res.json({data}))
+      .catch(function(err) {
+        const message = err.message || 'Failed to get vehicle location.';
+        const action = 'fetching vehicle location';
+        return redirectToError(res, message, action);
+      });
+  }
 });
 
 app.listen(PORT, function() {

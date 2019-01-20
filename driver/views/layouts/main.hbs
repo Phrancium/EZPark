@@ -2,22 +2,208 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Smartcar Demo</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <title>Smartcar Parking</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+  <style>
+html, body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
 
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+h1,h2,h3,h4,h5,h6,p {
+  margin: 0;
+  color: #222222;
+}
+
+* {
+  transition: all 0.3s ease;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: linear-gradient(30deg, #f12711, #f5af19);
+}
+
+h1, h2 {
+  margin: 20px 0;
+}
+
+button {
+  margin-top: 50px;
+}
+
+#Setup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  padding: 50px;
+  border: 5px solid rgba(255,255,255,0.5);
+  box-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+
+.row {
+  margin: 10px 0;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input, select {
+  outline: none;
+  border: none;
+
+  color: white;
+
+  background: rgba(0,0,0,0.8);
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+select {
+  width: 189px;
+}
+input {
+  width: 169px;
+}
+
+input:focus, input:hover, select:focus, select:hover {
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgba(255, 255, 255, 0.7);
+  opacity: 1; /* Firefox */
+}
+
+button {
+  outline: none;
+  border: none;
+  background: #f5af19;
+  padding: 10px 50px;
+  border: 2px solid #f12711;
+  font-weight: bold;
+  box-shadow: 0 0 2px #f12711;
+  min-width: 200px;
+}
+
+button:hover {
+  cursor: pointer;
+  box-shadow: 0 0 2px #f12711;
+}
+
+label {
+  font-weight: bold;
+  width: 100px;
+}
+
+.lds-ripple {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+.lds-ripple div {
+  position: absolute;
+  border: 4px solid #fff;
+  opacity: 1;
+  border-radius: 50%;
+  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.lds-ripple div:nth-child(2) {
+  animation-delay: -0.5s;
+}
+@keyframes lds-ripple {
+  0% {
+    top: 28px;
+    left: 28px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: -1px;
+    left: -1px;
+    width: 58px;
+    height: 58px;
+    opacity: 0;
+  }
+}
+
+.value {
+  width: 300px;
+}
+
+#Location {
+  margin-top: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.coords {
+  font-size: 3em;
+  margin: 2vh;
+}
+
+#spoofIndex {
+  margin: 10px 0;
+}
+
+#Data {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  background: white;
+  padding: 20px;
+  border: 5px solid rgba(255,255,255,0.5);
+  box-shadow: 0 0 10px rgba(255,255,255,0.5);
+  align-items: center;
+  height: 90vh;
+  width: 90vw;
+}
+
+.error {
+  color: red; 
+}
+
+.status {
+  padding: 10px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.active {
+  background: #4CA1AF; 
+}
+
+.notActive {
+  background: #2C3E50;
+  color: white;
+}
+  </style>
 </head>
 <body>
-  <div class="container mt-4">
-    <div id="header">
-      <h1>Smartcar Demo</h1>
-      <p id="summary">
-        This is a demo application that walks through using the Smartcar API to authenticate with and make requests to vehicles.
-      </p>
-    </p>
-  </div>
-
-    {{{body}}}
-
-  </div>
+  {{{body}}}
 </body>
 </html>
