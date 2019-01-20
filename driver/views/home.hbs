@@ -2,4 +2,22 @@
   <h1>Initialize</h1>
   <button type="button" onclick="window.location.href='{{authUrls.liveMode}}'">Existing Car</button>
   <button type="button" onclick="window.location.href='{{authUrls.testMode}}'">Test car</button>
+  <button onclick="clearData()">Clear All Data</button>
+  <script>
+  function clearData() {
+    fetch('https://kevcpro.lib.id/smartpark/storeInfo/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer SbnWZYDiKNqpD8VXv_9uN4b897J-GQjJ5lz5Odfz7rs3PI_i5nJeCSxuUiruJDxG' 
+      }
+    })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(myJson) {
+        console.log(JSON.stringify(myJson));
+      });
+  }
+</script>
 </div>
