@@ -12,23 +12,31 @@ module.exports = async (key = "key", amount = 0, context) => {
 let result = storage.get({
 	key: key
 });
+console.log(result);
 
 request.post({
 	headers: {'content type' : 'application/json', 'deviceId' : '49794efc-aefd-4e4c-a4e8-2d013ade09a9', 
 	"request-id" : '4453a5bb-fd72-481f-b796-8efbe43b0d22', 'thirdPartyAccessId' : 'CA1TAWjNbcZgZvMk',
-	'accessToken' : 'ddbe7ee6-2f22-445f-ad8c-a3031a65f825'},
+	'accessToken' : 'c31a02ba-7363-42c8-bc31-0d41cde87515'},
 	url: 'https://gateway-web.beta.interac.ca/publicapi/api/v2/money-requests/send',
-	body: {'expiry-date' : '2019-02-01T04:59:59.639Z', 'editableFulfillAmount' : false,
-    'currency' : 'CAD', 'amount' : amount, 'requestedFrom' : {
-    	"contactName" : 'Kevin Cho',
-    	"language" : 'en',
-    	"notificationPreferences" : [{
-    		'handle' : result,
-    		'handleType' : 'email',
-    		'active' : true
-    	}
-    	]
-    }}
+	form: {
+	"sourceMoneyRequestId": "95e623b23d644a9fb43738ec8a374702",
+"requestedFrom": {
+		"contactName": "Kevin Cho",
+		"language": "en",
+		"notificationPreferences": [{
+			"handle": result,
+			"handleType": "email",
+			"active": true
+		}]
+	},
+	"amount": amount,
+	"currency": "CAD",
+	"editableFulfillAmount": false,
+	"expiryDate": "2019-02-01T04:59:59.639Z",
+	"supressResponderNotifications": false
+
+}
 
 })
 
