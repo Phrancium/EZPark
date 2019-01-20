@@ -1,10 +1,15 @@
 {
   "name": "SmartPark",
-  "version": "0.0.0",
+  "version": "0.0.63",
   "description": "Allows users to create SmartContracts to replace Parking Meters!",
   "author": "kevcpro <kevc.pro@gmail.com>",
-  "main": "functions/__main__.js",
-  "dependencies": {},
+  "main": "functions/storeInfo.js",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "lib": "^3.0.2",
+    "request": "^2.88.0",
+    "uuid": "^3.3.2"
+  },
   "private": true,
   "stdlib": {
     "build": "faaslang",
