@@ -227,22 +227,22 @@ const spoofLocs = [
 
 const spoofLocs = [
   {
-    latitude: 0,
-    longitude: 0
-  },
-  {
-    latitude: 0,
-    longitude: 0
-  },
-  {
     latitude: 1,
     longitude: 1
   },
   {
     latitude: 1,
     longitude: 1
+  },
+  {
+    latitude: 0,
+    longitude: 0
+  },
+  {
+    latitude: 0,
+    longitude: 0
   }
-]
+];
 
 const _ = require('lodash');
 const Promise = require('bluebird');

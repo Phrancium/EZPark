@@ -55,8 +55,12 @@ class Map extends Component {
       });
     const json = await response.json();
 
-    const fetched = json;
+    let fetched = json;
     console.log(fetched);
+
+    if(fetched == null) {
+      fetched = [];
+    }
 
     const closestPark = fetched.map((v) => {
       const distances = this.state.smartContracts.map((c) => {
