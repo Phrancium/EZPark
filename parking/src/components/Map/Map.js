@@ -58,7 +58,7 @@ class Map extends Component {
     let fetched = json;
     console.log(fetched);
 
-    if(fetched == null) {
+    if(fetched == null || fetched.error) {
       fetched = [];
     }
 
