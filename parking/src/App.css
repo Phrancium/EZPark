@@ -33,8 +33,9 @@ input {
   border: none;
 
   color: white;
+  width: 189px;
 
-  background: rgba(0,0,0,0.3);
+  background: rgba(0,0,0,0.8);
   border-radius: 20px;
   padding: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
@@ -52,19 +53,20 @@ input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
 button {
   outline: none;
   border: none;
-  background: rgba(255, 255, 255, 0.7);
+  background: #6fb3bf;
   padding: 10px 50px;
   border-radius: 20px;
-  border: 2px solid rgba(255,255,255,0.5);
-  box-shadow: 0 0 2px rgba(255,255,255,0.5);
+  border: 2px solid #2C3E50;
+  font-weight: bold;
+  box-shadow: 0 0 2px rgba(76,161,175,0.5);
 }
 
 button:hover {
   cursor: pointer;
-  box-shadow: 0 0 2px rgba(255,255,255,0.7);
+  box-shadow: 0 0 2px rgba(76,161,175,0.5);
 }
 
 label {
   font-weight: bold;
-  width: 80px;
+  width: 100px;
 }

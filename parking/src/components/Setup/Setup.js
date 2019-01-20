@@ -5,11 +5,12 @@ class Setup extends Component {
 
   render() {
     return (
-      <div id='Setup'>
+      <form id='Setup' onSubmit={e => this.props.submitSetup(e)}>
         <h1>Setup</h1>
         <div className='row'>
           <label>Email</label>
           <input
+            required
             name='email'
             type='email'
             value={this.props.email}
@@ -20,16 +21,15 @@ class Setup extends Component {
         <div className='row'>
           <label>Address</label>
           <input
+            required
             name='address'
             value={this.props.address}
             onChange={e => this.props.setAddress(e.target.value)}
             placeholder='Address'
           />
         </div>
-        <button onClick={() => this.props.submitSetup()}>
-          Submit
-        </button>
-      </div>
+        <button type="submit" value="Submit">Submit</button>
+      </form>
     );
   }
 }
