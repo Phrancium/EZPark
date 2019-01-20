@@ -1,5 +1,6 @@
 'use strict';
 
+/*
 const spoofLocs = [
   {
     latitude: 0.00005,
@@ -222,11 +223,26 @@ const spoofLocs = [
     longitude: 0
   }
 ];
+*/
 
-const headers = {
-  'Content-Type': 'application/json',
-  'Authorization': 'Bearer SbnWZYDiKNqpD8VXv_9uN4b897J-GQjJ5lz5Odfz7rs3PI_i5nJeCSxuUiruJDxG' 
-}
+const spoofLocs = [
+  {
+    latitude: 0,
+    longitude: 0
+  },
+  {
+    latitude: 0,
+    longitude: 0
+  },
+  {
+    latitude: 1,
+    longitude: 1
+  },
+  {
+    latitude: 1,
+    longitude: 1
+  }
+]
 
 const _ = require('lodash');
 const Promise = require('bluebird');
@@ -240,6 +256,7 @@ const opn = require('opn');
 const url = require('url');
 const validator = require('validator');
 const axios = require('axios');
+const fetch = require("node-fetch");
 
 // Set Smartcar configuration
 const PORT = process.env.PORT || 8000;
@@ -428,26 +445,14 @@ app.post('/simulate', function(req, res, next) {
   const vehicle = vehicles[vehicleId];
   const instance = new smartcar.Vehicle(vehicleId, access.accessToken);
 
+
   instance.info()
-    .then(data => res.render('sim', {data, vehicle}))
+    .then(data => res.render('sim', {data, vehicle, email: email}))
     .catch(function(err) {
       const message = err.message || 'Failed to get vehicle info.';
       const action = 'fetching vehicle info';
       return redirectToError(res, message, action);
     });
-
-  // axios.post('https://kevcpro.lib.id/smartpark@0.0.54/storeInfo/', {
-  //   key: vehicle.id,
-  //   value: email
-  // }, {headers: headers})
-  //   .then(function () {
-      
-  //   })
-  //   .catch(function (err) {
-  //     const message = err.message || 'Failed to get vehicle info.';
-  //     const action = 'fetching vehicle info';
-  //     return redirectToError(res, message, action);
-  //   });  
 });
 
 app.get('/getLocation', function(req, res, next) {

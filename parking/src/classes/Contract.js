@@ -1,4 +1,4 @@
-const Contract = (longitude='', latitude='', radius=2.4, cost='') => {
+const Contract = (latitude='', longitude='', radius=2.4, cost='') => {
   return {
     id:  '_' + Math.random().toString(36).substr(2, 9),
     longitude: longitude,

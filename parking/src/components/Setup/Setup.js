@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './Setup.css';
 
 class Setup extends Component {
 

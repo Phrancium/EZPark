@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import CreateContract from './CreateContract';
 import ContractList from './ContractList';
-import './Map.css';
 import Vehicle from '../../classes/Vehicle';
 
 function measure(lat1, lon1, lat2, lon2){  // generally used geo measurement function
@@ -28,10 +27,10 @@ class Map extends Component {
   }
 
   componentDidMount() {
+    this.fetchVehicles();
     this.interval = setInterval(() => {
       this.fetchVehicles();
-      this.trackPayment();
-    }, 1000);
+    }, 10000);
   }
   componentWillUnmount() {
     clearInterval(this.interval);
@@ -43,11 +42,21 @@ class Map extends Component {
     this.setState({
       smartContracts: smartContracts
     });
+    this.fetchVehicles();
   }
 
-  fetchVehicles() {
-    console.log(this.state.vehicles);
-    const fetched = [{id: 1, longitude: 0, latitude: 0}, {id: 2, longitude: 0, latitude: 0}];
+  async fetchVehicles() {
+    const response = await fetch('https://kevcpro.lib.id/smartpark/getLocation/', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer SbnWZYDiKNqpD8VXv_9uN4b897J-GQjJ5lz5Odfz7rs3PI_i5nJeCSxuUiruJDxG' 
+        }
+      });
+    const json = await response.json();
+
+    const fetched = json;
+    console.log(fetched);
 
     const closestPark = fetched.map((v) => {
       const distances = this.state.smartContracts.map((c) => {
@@ -66,11 +75,15 @@ class Map extends Component {
       return {id: v.id, closest: closest};
     });
 
+    console.log(closestPark);
+
     const parked = closestPark.filter((v) => {
       if(v.closest === null)
         return false
       return v.closest.distance < v.closest.contract.radius;
     });
+
+    console.log(parked);
 
     const justLeft = this.state.vehicles.filter((v) => {
       const stillParked = parked.filter((p) => {
@@ -83,8 +96,10 @@ class Map extends Component {
       return stillParked.length === 0;
     });
 
+    console.log(justLeft);
+
     justLeft.forEach((j) => {
-      this.issuePayment(j.id);
+      this.issuePayment(j);
     })
 
     const newVehicles = parked.map((p) => {
@@ -104,9 +119,13 @@ class Map extends Component {
       return Vehicle(p.id, p.closest.contract.id, fee);
     });
 
+    console.log(newVehicles);
+
     this.setState({
       vehicles: newVehicles
     })
+
+    this.trackPayment();
   }
 
   trackPayment() {
@@ -140,8 +159,24 @@ class Map extends Component {
     });
   }
 
-  issuePayment(id) {
-    // Call API
+  issuePayment(v) {
+    fetch('https://kevcpro.lib.id/smartpark/requestMoney/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer SbnWZYDiKNqpD8VXv_9uN4b897J-GQjJ5lz5Odfz7rs3PI_i5nJeCSxuUiruJDxG' 
+        },
+        body: JSON.stringify({
+          key: v.id,
+          amount: v.fee
+        })
+      })
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(myJson) {
+          console.log(JSON.stringify(myJson));
+        });
   }
 
   setError(val) {

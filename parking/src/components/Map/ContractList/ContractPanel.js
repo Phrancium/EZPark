@@ -5,7 +5,7 @@ class ContractList extends Component {
     let active = null;
     if(this.props.active) {
       const vehicles = this.props.active.map((v, i) =>
-        <p key={i}><b>{v.id}</b>: ${v.fee}</p>
+        <p key={i}><b>{v.id}</b>: ${v.fee.toFixed(2)}</p>
       );
 
       active = <div className='status active'>{vehicles}</div>;

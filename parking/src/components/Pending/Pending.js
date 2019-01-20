@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './Pending.css';
 
 class Pending extends Component {
 

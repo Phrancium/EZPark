@@ -1,6 +1,7 @@
 <div id="Data">
   <h1>Simulation Window</h1>
-  <input id="Id" type="hidden" value={{vehicle.id}}>
+  <input id="Id" type="hidden" value={{vehicle.id}} />
+  <input id="Email" type="hidden" value={{email}} />
   <div class="row">
     <label>Vehicle: </label>
     <p class="value">{{vehicle.year}} {{vehicle.make}} {{vehicle.model}}</p>
@@ -27,7 +28,7 @@
       getLocation();
       setInterval(function() {
         getLocation();
-      }, 60000);
+      }, 10000);
     });
 
     function getLocation() {
@@ -47,24 +48,25 @@
     }
 
     function setLocation(data) {
-      /*
-      $.ajax({
-        url: 'https://kevcpro.lib.id/smartpark@0.0.63/storeLocation/',
-        type: 'POST',
-        data: {
-          key: $("#Id").val(),
-          latitude: data.latitude,
-          longitude: data.longitude
-        },
+      fetch('https://kevcpro.lib.id/smartpark/storeLocation/', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer SbnWZYDiKNqpD8VXv_9uN4b897J-GQjJ5lz5Odfz7rs3PI_i5nJeCSxuUiruJDxG' 
         },
-        success: function() {
-          console.log("UPDATED");
-        }
-      });
-      */
+        body: JSON.stringify({
+          key: $("#Id").val(),
+          latitude: data.latitude,
+          longitude: data.longitude,
+          email: $("#Email").val()
+        })
+      })
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(myJson) {
+          console.log(JSON.stringify(myJson));
+        });
     }
   </script>
 </div>
