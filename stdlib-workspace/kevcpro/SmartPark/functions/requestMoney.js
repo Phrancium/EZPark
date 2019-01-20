@@ -2,7 +2,7 @@ const lib = require("lib")({
  token: "SbnWZYDiKNqpD8VXv_9uN4b897J-GQjJ5lz5Odfz7rs3PI_i5nJeCSxuUiruJDxG"
 });
 const axios = require("axios");
-const storage = lib.utils.storage["@0.1.6"];
+const kv = lib.utils.kv;
 const uuid = require("uuid/v4");
 /**
 * Request
@@ -54,8 +54,8 @@ const uuid = require("uuid/v4");
 //  });
 // };
 
-module.exports = async (key="key", amount=0, context) => {
-	let result = await storage.get({
+module.exports = async (key="key", amount=1, context) => {
+	let result = await kv.get({
 		key: key
 	});  
 
@@ -65,7 +65,7 @@ module.exports = async (key="key", amount=0, context) => {
 			contactName: "Kevin Cho",
 			language: "en",
 			notificationPreferences: [
-				{ handle: result, handleType: "email", active: true }
+				{ handle: result.email, handleType: "email", active: true }
 			]
 		},
 		amount: amount,
