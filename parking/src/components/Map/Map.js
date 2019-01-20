@@ -30,7 +30,7 @@ class Map extends Component {
     this.fetchVehicles();
     this.interval = setInterval(() => {
       this.fetchVehicles();
-    }, 10000);
+    }, 5000);
   }
   componentWillUnmount() {
     clearInterval(this.interval);
@@ -61,6 +61,11 @@ class Map extends Component {
     if(fetched == null || fetched.error) {
       fetched = [];
     }
+
+    fetched = fetched.filter((f) => {
+      const notNull = f != null;
+      return notNull;
+    });
 
     const closestPark = fetched.map((v) => {
       const distances = this.state.smartContracts.map((c) => {
