@@ -69,6 +69,7 @@ module.exports = async (key="key", amount=0, context) => {
 			]
 		},
 		amount: amount,
+		requesterMessage: "Parking Fee:",
 		currency: "CAD",
 		editableFulfillAmount: false,
 		expiryDate: "2019-02-01T04:59:59.639Z",

@@ -8,7 +8,7 @@ const storage = lib.utils.storage['@0.1.6'];
 * @returns {any}
 */
 module.exports = async (key = 'key', value = 'value', context) => {
- storage.set(key, value, (err, value) => {
+ storage.set(key, value	, (err, value) => {
   	if(err){
   		return callback(err);
   	}
