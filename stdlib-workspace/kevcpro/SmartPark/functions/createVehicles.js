@@ -4,7 +4,7 @@ const storage = lib.utils.storage['@0.1.6'];
 * Creates the list of Vehicles
 * @returns {any}
 */
-module.exports = async (key = "vehicles", context) => {
+module.exports = async (key = "vehiclez", context) => {
 let result = await storage.list.create({
   		key: key
   	});

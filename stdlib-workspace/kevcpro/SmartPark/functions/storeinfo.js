@@ -17,4 +17,5 @@ module.exports = async (key = 'key', value = 'value', context) => {
   		value: value
   	});
 });
+ return "xd";
 };

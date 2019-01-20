@@ -5,7 +5,7 @@ const storage = lib.utils.storage['@0.1.6'];
 * @param {string} key is the Vehicle ID
 * @param {number} latitude
 * @param {number} longitude
-* @returns {any}
+* @returns {string}
 */
 module.exports = async (key = "key", latitude = 0, longitude = 0, context) => {
 	var coord = [key, latitude, longitude];
@@ -13,16 +13,19 @@ module.exports = async (key = "key", latitude = 0, longitude = 0, context) => {
   				"latitude" : coord[1],
   				"longitude": coord[2]};
   	let result = await storage.list.add({
-  		key: "vehicle",
+  		key: "vehiclez",
   		value: key
   	});
-	storage.set('key', 'value', (err, value) => {
-  	if(err){
-  		return callback(err);
-  	}
-  	let result1 = storage.set({
-  		key: key,
-  		value: json
-  	});
-});
+ 	storage.set('key', 'value', (err, value) => {
+	  	if(err){
+	  		return callback(err);
+	  	}
+	  	let result1 = storage.set({
+	  		key: key,
+	  		value: json
+	  	});
+
+	});
+
+	return 'xd';
 };

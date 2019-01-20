@@ -1,6 +1,6 @@
 {
   "name": "SmartPark",
-  "version": "0.0.54",
+  "version": "0.0.63",
   "description": "Allows users to create SmartContracts to replace Parking Meters!",
   "author": "kevcpro <kevc.pro@gmail.com>",
   "main": "functions/storeInfo.js",
