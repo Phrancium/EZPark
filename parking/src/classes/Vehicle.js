@@ -1,9 +1,8 @@
-const Vehicle = (id, fee, longitude='',latitude='') => {
+const Vehicle = (id, contract, fee=0) => {
   return {
     id: id,
     fee: fee,
-    longitude: longitude,
-    latitude: latitude
+    contract: contract
   };
 }
 

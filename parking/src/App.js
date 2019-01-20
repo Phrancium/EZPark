@@ -9,7 +9,7 @@ import Map from './components/Map';
 const initialState = {
   address: '',
   email: '',
-  initialized: false,
+  initialized: true,
   error: null,
   pending: false,
 }

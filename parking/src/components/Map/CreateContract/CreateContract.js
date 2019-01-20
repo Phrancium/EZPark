@@ -90,7 +90,7 @@ class Map extends Component {
             type='number'
             value={this.state.cost}
             onChange={e => this.setCost(e.target.value)}
-            placeholder='cad'
+            placeholder='cad per minute'
             step='0.01'
           />
         </div>
